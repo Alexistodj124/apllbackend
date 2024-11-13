@@ -6,10 +6,10 @@ from models.empleado import Empleado
 from models.Inventario import Inventario
 from models.pagos import Pago
 
-orden_bp = Blueprint('orden', __name__)
+orden = Blueprint('orden', __name__)
 
 # Create a new order
-@orden_bp.route('/orden', methods=['POST'])
+@orden.route('/orden', methods=['POST'])
 def create_orden():
     data = request.json
     origen = data.get('origen')
@@ -43,13 +43,13 @@ def create_orden():
     return jsonify(nueva_orden.to_dict()), 201
 
 # Get all orders
-@orden_bp.route('/orden', methods=['GET'])
+@orden.route('/orden', methods=['GET'])
 def get_ordenes():
     ordenes = Orden.query.all()
     return jsonify([orden.to_dict() for orden in ordenes]), 200
 
 # Get a single order by ID
-@orden_bp.route('/orden/<int:id>', methods=['GET'])
+@orden.route('/orden/<int:id>', methods=['GET'])
 def get_orden(id):
     orden = Orden.query.get(id)
     if orden:
@@ -57,7 +57,7 @@ def get_orden(id):
     return jsonify({'error': 'Orden not found'}), 404
 
 # Update an order by ID
-@orden_bp.route('/orden/<int:id>', methods=['PUT'])
+@orden.route('/orden/<int:id>', methods=['PUT'])
 def update_orden(id):
     data = request.json
     orden = Orden.query.get(id)
@@ -95,7 +95,7 @@ def update_orden(id):
     return jsonify({'error': 'Orden not found'}), 404
 
 # Delete an order by ID
-@orden_bp.route('/orden/<int:id>', methods=['DELETE'])
+@orden.route('/orden/<int:id>', methods=['DELETE'])
 def delete_orden(id):
     orden = Orden.query.get(id)
     if orden:

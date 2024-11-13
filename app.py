@@ -4,7 +4,6 @@ from utils.db import db
 from config import DATABASE_CONNECTION_URI
 from routes.carros import carros
 from routes.roles import roles
-from routes.bodega import bodegas
 from routes.empleado import empleados
 from routes.Inventario import inventarios
 from routes.usuarios import usuarios
@@ -30,7 +29,6 @@ migrate = Migrate(app, db)
 # Registrar los blueprints
 app.register_blueprint(carros)
 app.register_blueprint(roles)
-app.register_blueprint(bodegas)
 app.register_blueprint(usuarios)
 app.register_blueprint(empleados)
 app.register_blueprint(inventarios)
