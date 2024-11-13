@@ -3,7 +3,10 @@ import os
 
 #load_dotenv()
 
-user = 'postgres'
+#local
+#user = 'postgres'
+#Server
+user = 'alexis'
 password = 'Alexis2012'
 host = 'localhost'
 port = '5432'
