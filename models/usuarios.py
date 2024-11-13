@@ -10,7 +10,7 @@ class Usuarios(db.Model):
     id_rol = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
 
     rol = db.relationship('Roles', backref='usuarios')
-    empleado = db.relationship('Empleado', backref='usuario', uselist=False)
+    empleado = db.relationship('Empleado', backref='user', uselist=False)
 
     def __init__(self, username, password, id_rol):
         self.username = username
