@@ -12,7 +12,7 @@ def get_inventarios():
     inventarios = Inventario.query.all()
     if not inventarios:
         return jsonify({"mensaje": "No se encontraron inventarios"}), 404
-    inventarios_list = [inventario.to_dict() for inventario in inventarios]
+    inventarios_list = [inventario.to_dict(include_logo=False) for inventario in inventarios]
     return jsonify(inventarios_list), 200
 
 @inventarios.route("/inventarios/<int:id>", methods=["GET"])
@@ -20,7 +20,7 @@ def get_inventario(id):
     inventario = Inventario.query.get(id)
     if inventario is None:
         return jsonify({"mensaje": "Inventario no encontrado"}), 404
-    return jsonify(inventario.to_dict()), 200
+    return jsonify(inventario.to_dict(include_logo=False)), 200
 
 @inventarios.route("/inventarios", methods=["POST"])
 def crear_inventario():

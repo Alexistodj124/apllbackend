@@ -28,7 +28,7 @@ class Inventario(db.Model):
     def existencia(self):
         return self.ingresados - self.vendidos
 
-    def to_dict(self):
+    def to_dict(self, include_logo=False):
         return {
             'id': self.id,
             'id_carro': self.id_carro,
@@ -37,6 +37,6 @@ class Inventario(db.Model):
             'vendidos': self.vendidos,
             'existencia': self.existencia,
             'precio_unitario': self.precio_unitario,
-            'carro': self.carro.to_dict(),
+            'carro': self.carro.to_dict(include_logo=include_logo),
             'ordenes': [orden.id for orden in self.ordenes]
         }

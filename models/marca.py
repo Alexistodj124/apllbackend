@@ -10,9 +10,11 @@ class Marca(db.Model):
         self.Marca = Marca
         self.Logo = Logo
 
-    def to_dict(self):
-        return {
+    def to_dict(self, include_logo=True):
+        data = {
             'id': self.id,
-            'Marca': self.Marca,
-            'Logo': base64.b64encode(self.Logo).decode('utf-8') if self.Logo else None
+            'Marca': self.Marca
         }
+        if include_logo:
+            data['Logo'] = base64.b64encode(self.Logo).decode('utf-8') if self.Logo else None
+        return data
