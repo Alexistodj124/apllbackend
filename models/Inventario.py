@@ -14,7 +14,7 @@ class Inventario(db.Model):
 
     # Relationships
     carro = db.relationship('Carro', backref='inventarios')
-    inventarios = db.relationship('Inventario', secondary=orden_inventario, backref='ordenes')
+    inventarios = db.relationship('Inventario', secondary=orden_inventario, backref='ordenes', overlaps="inventarios,ordenes")
 
 
     def __init__(self, id_carro, repuesto, ingresados, vendidos, precio_unitario):

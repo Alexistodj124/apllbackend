@@ -17,7 +17,7 @@ class Orden(db.Model):
     vendedor = db.relationship('Empleado', foreign_keys=[vendedor_id], backref='ventas')
     bodeguero = db.relationship('Empleado', foreign_keys=[bodeguero_id], backref='bodegas')
     pagos = db.relationship('Pago', backref='orden', cascade="all, delete-orphan")
-    inventarios = db.relationship('Inventario', secondary=orden_inventario, backref='ordenes')
+    inventarios = db.relationship('Inventario', secondary=orden_inventario, backref='orders', overlaps="inventarios,ordenes")
 
     def __init__(self, origen, vendedor_id, bodeguero_id, total):
         self.origen = origen

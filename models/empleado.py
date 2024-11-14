@@ -8,7 +8,7 @@ class Empleado(db.Model):
     apellido = db.Column(db.String(100), nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
 
-    usuario = db.relationship('Usuarios', backref='employee', uselist=False)
+    usuario = db.relationship('Usuarios', backref='employee', uselist=False, overlaps="employee,usuario")
 
     def __init__(self, nombre, apellido, id_usuario):
         self.nombre = nombre
