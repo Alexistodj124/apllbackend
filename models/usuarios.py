@@ -10,8 +10,7 @@ class Usuarios(db.Model):
     id_rol = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
 
     rol = db.relationship('Roles', backref='usuarios')
-    empleado = db.relationship('Empleado', backref='user', uselist=False, overlaps="employee,usuario")
-
+    
     def __init__(self, username, password, id_rol):
         self.username = username
         self.password = self.hash_password(password)  # Hash the password before storing
@@ -30,5 +29,4 @@ class Usuarios(db.Model):
             'id': self.id,
             'username': self.username,
             'rol': self.rol.to_dict() if self.rol else None,
-            'empleado': self.empleado.to_dict() if self.empleado else None
         }

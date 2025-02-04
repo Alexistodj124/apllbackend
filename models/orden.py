@@ -1,4 +1,3 @@
-# orden.py
 from datetime import datetime
 from utils.db import db
 from models.associations import orden_inventario  # Import the junction table
@@ -17,7 +16,11 @@ class Orden(db.Model):
     vendedor = db.relationship('Empleado', foreign_keys=[vendedor_id], backref='ventas')
     bodeguero = db.relationship('Empleado', foreign_keys=[bodeguero_id], backref='bodegas')
     pagos = db.relationship('Pago', backref='orden', cascade="all, delete-orphan")
-    inventarios = db.relationship('Inventario', secondary=orden_inventario, backref='orders', overlaps="inventarios,ordenes")
+    inventarios = db.relationship(
+        'Inventario', 
+        secondary=orden_inventario, 
+        back_populates='ordenes'
+    )
 
     def __init__(self, origen, vendedor_id, bodeguero_id, total):
         self.origen = origen

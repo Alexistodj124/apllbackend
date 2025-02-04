@@ -8,7 +8,8 @@ class Empleado(db.Model):
     apellido = db.Column(db.String(100), nullable=False)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
 
-    usuario = db.relationship('Usuarios', backref='employee', uselist=False, overlaps="employee,usuario")
+    # Resolve conflicts by specifying overlaps
+    usuario = db.relationship('Usuarios', backref='employee', uselist=False, overlaps="usuario.employee")
 
     def __init__(self, nombre, apellido, id_usuario):
         self.nombre = nombre
@@ -20,5 +21,5 @@ class Empleado(db.Model):
             'id': self.id,
             'nombre': self.nombre,
             'apellido': self.apellido,
-            'usuario': self.usuario.to_dict() if self.usuario else None  # Incluye todos los datos del usuario
+            'usuario': self.usuario.to_dict() if self.usuario else None
         }

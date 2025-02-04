@@ -1,4 +1,3 @@
-# inventario.py
 from utils.db import db
 from models.associations import orden_inventario  # Import the junction table
 
@@ -14,8 +13,11 @@ class Inventario(db.Model):
 
     # Relationships
     carro = db.relationship('Carro', backref='inventarios')
-    inventarios = db.relationship('Inventario', secondary=orden_inventario, backref='ordenes', overlaps="inventarios,ordenes")
-
+    ordenes = db.relationship(
+        'Orden', 
+        secondary=orden_inventario, 
+        back_populates='inventarios'
+    )
 
     def __init__(self, id_carro, repuesto, ingresados, vendidos, precio_unitario):
         self.id_carro = id_carro

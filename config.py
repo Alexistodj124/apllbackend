@@ -6,7 +6,7 @@ import os
 #local
 #user = 'postgres'
 #Server
-user = 'alexis'
+user = 'postgres'
 password = 'Alexis2012'
 host = 'localhost'
 port = '5432'

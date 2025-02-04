@@ -12,6 +12,7 @@ def add_pago(id_orden):
     data = request.json
     metodo = data.get('metodo')
     cantidad = data.get('cantidad')
+    referencia = data.get('referencia', "Sin Referencia")
 
     # Validation
     if not metodo or cantidad is None:
@@ -25,7 +26,7 @@ def add_pago(id_orden):
         return jsonify({'error': 'Orden not found'}), 404
 
     # Create and save the new payment
-    nuevo_pago = Pago(metodo=metodo, cantidad=cantidad, id_orden=id_orden)
+    nuevo_pago = Pago(metodo=metodo, cantidad=cantidad, id_orden=id_orden, referencia=referencia)
     db.session.add(nuevo_pago)
     db.session.commit()
     return jsonify(nuevo_pago.to_dict()), 201

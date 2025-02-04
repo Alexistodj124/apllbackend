@@ -1,4 +1,5 @@
 # orden_routes.py
+from datetime import date
 from flask import Blueprint, request, jsonify
 from utils.db import db
 from models.orden import Orden
@@ -47,6 +48,22 @@ def create_orden():
 def get_ordenes():
     ordenes = Orden.query.all()
     return jsonify([orden.to_dict() for orden in ordenes]), 200
+
+@orden.route('/orden/dia', methods=['GET'])
+def obtener_ordenes_del_dia():
+    try:
+        # Obtén la fecha actual
+        hoy = date.today()
+
+        # Filtra las órdenes por la fecha del día actual
+        ordenes_del_dia = Orden.query.filter(
+            db.func.date(Orden.fecha) == hoy
+        ).all()
+
+        # Devuelve las órdenes en formato JSON
+        return jsonify([orden.to_dict() for orden in ordenes_del_dia]), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Get a single order by ID
 @orden.route('/orden/<int:id>', methods=['GET'])
